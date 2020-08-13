@@ -1,28 +1,39 @@
-class Api::V1::ApplicationController < ActionController::API
+class ApplicationController < ActionController::API
+  before_action :authorized
 
-  helper_method :current_user, :signed_in?
-
-  private
-  def current_user
-    @current_user ||= User.find_by(session_token: session[:session_token])
+  def encode_token(payload) #{ user_id: 2 }
+    JWT.encode(payload, 'my_s3cr3t') #issue a token, store payload in token
   end
 
-  def signed_in?
+  def auth_header
+    request.headers['Authorization'] # Bearer <token>
+  end
+
+  def decoded_token
+    if auth_header()
+      token = auth_header.split(' ')[1] #[Bearer, <token>]
+      begin
+        JWT.decode(token, 'my_s3cr3t', true, algorithm: 'HS256')
+      rescue JWT::DecodeError
+        nil
+      end
+    end
+  end
+
+  def current_user
+    if decoded_token()
+      user_id = decoded_token[0]['user_id']
+      @user = User.find_by(id: user_id)
+    else
+      nil
+    end
+  end
+
+  def logged_in?
     !!current_user
   end
 
-  def sign_in!(user)
-    @current_user = user
-    session[:session_token] = user.reset_session_token!
+  def authorized
+    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
   end
-
-  def sign_out!
-    current_user.reset_session_token!
-    session[:session_token] = nil
-  end
-
-  def require_signed_in!
-    redirect_to new_session_url unless signed_in?
-  end
-
 end

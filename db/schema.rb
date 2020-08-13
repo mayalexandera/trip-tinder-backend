@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_13_025402) do
+ActiveRecord::Schema.define(version: 2020_08_13_192053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,21 +56,21 @@ ActiveRecord::Schema.define(version: 2020_08_13_025402) do
     t.datetime "start_date", null: false
     t.datetime "end_date", null: false
     t.bigint "park_id", null: false
-    t.bigint "user_id"
+    t.bigint "trip_lead_id"
     t.integer "difficulty_rating", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["park_id"], name: "index_trips_on_park_id"
-    t.index ["user_id"], name: "index_trips_on_user_id"
+    t.index ["trip_lead_id"], name: "index_trips_on_trip_lead_id"
   end
 
   create_table "user_trips", force: :cascade do |t|
     t.bigint "trips_id"
-    t.bigint "users_id"
+    t.bigint "trip_leader_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["trip_leader_id"], name: "index_user_trips_on_trip_leader_id"
     t.index ["trips_id"], name: "index_user_trips_on_trips_id"
-    t.index ["users_id"], name: "index_user_trips_on_users_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2020_08_13_025402) do
 
   add_foreign_key "park_trips", "parks"
   add_foreign_key "park_trips", "trips"
-  add_foreign_key "trips", "users"
+  add_foreign_key "trips", "users", column: "trip_lead_id"
   add_foreign_key "user_trips", "trips", column: "trips_id"
-  add_foreign_key "user_trips", "users", column: "users_id"
+  add_foreign_key "user_trips", "users", column: "trip_leader_id"
 end
