@@ -11,18 +11,11 @@ class Api::V1::SessionsController < ApplicationController
       params[:password]
     )
 
-    if @user
-      sign_in!(@user)
-      redirect_to @user
-    else
-      flash.now[:errors] = ['Invalid username or password']
-      render :new
-    end
+    sign_in!(@user) if @user
   end
 
   def logout
     sign_out!
-    redirect_to root_path
   end
 
 end

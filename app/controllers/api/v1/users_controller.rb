@@ -12,13 +12,13 @@ class Api::V1::UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    sign_in!(@user) 
+    sign_in!(@user)
   end
 
 
   private
   def user_params
-    params.require(:user).permit(:username, :password, :first_name, :last_name)
+    params.require(:user).permit(:username, :password, :first_name, :last_name, :bio, :avatar)
   end
 
   def set_user
