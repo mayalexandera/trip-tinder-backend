@@ -1,0 +1,2 @@
+class ParkTrip < ApplicationRecord
+end
