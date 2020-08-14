@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :last_name, length: { minimum: 4 }, presence: true
   validates :username, uniqueness: true, length: { minimum: 6, maximum: 14 }
   validates :password_digest, presence: true
+  validates :remember, default: false
 
   def trips_lead
     UserTrips.where(user_id: self.id)
