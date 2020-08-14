@@ -35,6 +35,6 @@ User.all.destroy!
     t.datetime "end_date", null: false
     t.bigint "park_id", null: false
     t.bigint "trip_lead_id"
-    t.integer "difficulty_rating", null: false
+    t.integer "difficulty_rating", null: fa
 
 end
