@@ -1,13 +1,19 @@
 class Api::V1::TripsController < ApplicationController
+  skip_before_action :authorized, only: [:create, :index]
 
-  def index 
+  def index
     @trips = Trip.all
+    render json: @trips
   end
 
-  def create 
-    @user = User.find(id: @user.id)
-    @trip = Trip.create(trip_params)
-    if !@trip.valid?
+  def create
+    @user = User.find_by(username: params[:trip_lead][:username])
+    @trip = Trip.new(trip_params)
+    @trip.trip_lead = @user
+    @trip.save!
+    if @trip.save
+     render json: @trip
+    else
       render json: { error: 'failed to create trip'}, status: :not_acceptable
     end
   end
