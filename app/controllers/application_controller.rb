@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+  include CurrentUserConcern
   before_action :authorized
 
   def encode_token(payload) #{ user_id: 2 }
