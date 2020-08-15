@@ -38,12 +38,14 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:create]
-      post '/login', to: 'auth#create'
-      get '/profile', to: 'users#profile'
-      resources :parks
-      resources :trips
-
+      resources :users do 
+        post '/login', to: 'auth#create'
+        get '/profile', to: 'users#profile'
+          resources :parks
+          resources :trips
+      end
+      resources parks, only: [:index, :show]
+      resources trips, only: [:index, :show]
     end
   end
 end
