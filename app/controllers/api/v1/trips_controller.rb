@@ -1,7 +1,9 @@
 class Api::V1::TripsController < ApplicationController
+  skip_before_action :authorized
 
-  def index 
+  def index
     @trips = Trip.all
+    render json: @trips
   end
 
   def create 

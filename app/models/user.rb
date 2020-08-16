@@ -3,8 +3,7 @@ require 'bcrypt'
 class User < ApplicationRecord
   has_secure_password
 
-  has_many :trips
-  has_many :user_trips
+  has_many :trips, through: :user_trips
   has_many :comments
 
   validates :first_name, length: { minimum: 2 }, presence: true

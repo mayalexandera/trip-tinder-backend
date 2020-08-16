@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   end
 
   def auth_header
-    request.headers['Authorization'] # Bearer <token>
+    request.headers['Authorization'] # Bearer <toksen>
   end
 
   def decoded_token
@@ -34,6 +34,7 @@ class ApplicationController < ActionController::API
   end
 
   def authorized
+    
     render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
   end
 end

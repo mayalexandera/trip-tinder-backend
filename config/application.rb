@@ -35,6 +35,9 @@ module TripTinderBackend
     config.api_only = true
   end
 end
+
+
+
 #use Rack::Cors do
 #  allow do
 #    origins 'localhost:3000', '127.0.0.1:3000',
