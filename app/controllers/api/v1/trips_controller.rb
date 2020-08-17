@@ -19,6 +19,16 @@ class Api::V1::TripsController < ApplicationController
       end
   end
 
+  def edit 
+    @trip = Trip.find_by(id: params[:trip_id])
+  end
+
+  def update
+    @trip = Trip.find_by(id: params[:trip_id])
+    @user = User.find_by(username: params[:user][:id])
+    puts @user
+  end
+
   private
 
   def trip_params
