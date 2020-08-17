@@ -4,7 +4,7 @@ class Api::V1::TripsController < ApplicationController
   def index
     puts params[:searchTerm]
     @trips = Trip.all
-    render json: @trips
+    render json: @trips, include: [:trip_lead, :park]
   end
 
   def create
@@ -22,6 +22,6 @@ class Api::V1::TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :state, :description, :start_date, :end_date, :park_id, :trip_goers, :trip_lead, :difficulty_rating)
+    params.require(:trip).permit(:name, :state, :description, :start_date, :end_date, :park_id, :trip_goers, :trip_lead,:difficulty_rating)
   end
 end
