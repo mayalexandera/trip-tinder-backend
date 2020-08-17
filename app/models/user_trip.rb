@@ -3,5 +3,4 @@ class UserTrip < ApplicationRecord
   belongs_to :trip
 
   validates :trip_lead_id, :trip_id, presence: true
-
 end
