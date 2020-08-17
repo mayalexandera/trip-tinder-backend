@@ -13,6 +13,15 @@ class Api::V1::TripsController < ApplicationController
     @trip.trip_lead = @user
     @trip.save!
       if @trip.save
+        UserTrip.create!(
+          trip: @trip,
+          trip_lead: @trip.trip_lead;
+        )
+        ParkTrip.create!(
+          park: @trip.park,
+          trip: @trip
+        )
+        
        render json: @trip
       else
         render json: { error: 'failed to create trip'}, status: :not_acceptable
@@ -25,8 +34,9 @@ class Api::V1::TripsController < ApplicationController
 
   def update
     @trip = Trip.find_by(id: params[:trip_id])
-    @user = User.find_by(username: params[:user][:id])
+    @user = User.find_by(username: params[:username])
     puts @user
+    @trip.trip_goers.push(@user)
   end
 
   private

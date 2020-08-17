@@ -3,7 +3,8 @@ class Api::V1::ParksController < ApplicationController
   skip_before_action :authorized
 
   def index 
-    @parks = Park.all 
+    @parks = Park.all
+    render json: @parks, include: :park_trips
   end
 
   def show
