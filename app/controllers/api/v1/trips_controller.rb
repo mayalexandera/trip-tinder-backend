@@ -2,8 +2,14 @@ class Api::V1::TripsController < ApplicationController
   skip_before_action :authorized
 
   def index
-    puts params[:searchTerm]
+    if request.headers['term']
+      term = request.heeaders['term']
+      @trips = Trip.searchable(term)
+    end
+    puts request.headers
+    #byebug
     @trips = Trip.all
+    #byebug
     render json: @trips, include: [:trip_lead, :park]
   end
 
@@ -35,8 +41,15 @@ class Api::V1::TripsController < ApplicationController
   def update
     @trip = Trip.find_by(id: params[:trip_id])
     @user = User.find_by(username: params[:username])
-    puts @user
-    @trip.trip_goers.push(@user)
+    @user_trip = UserTrip.new(
+      user: @user,
+      trip: @trip
+    )
+    if @user_trip.save!
+      render json: @trip, include: :user_trips
+    else
+      render json: {message: 'you have already joined this trip'}, status: :not_acceptable
+    end
   end
 
   private
