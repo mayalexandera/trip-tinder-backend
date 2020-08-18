@@ -2,9 +2,9 @@
 class Api::V1::ParksController < ApplicationController
   skip_before_action :authorized
 
-  def index 
+  def index
     @parks = Park.all
-    render json: @parks, include: :park_trips
+    render json: @parks, includes: :park_trips
   end
 
   def show
@@ -13,8 +13,8 @@ class Api::V1::ParksController < ApplicationController
 
   def create
     @park = Park.create(park_params)
-    if @park.save 
-      render json: @park
+    if @park.save
+      render json: @park, include: @park.state_name
     else
       render json: { error: 'failed to create trip'}, status: :not_acceptable
     end

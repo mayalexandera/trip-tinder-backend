@@ -1,5 +1,4 @@
-class Park < ApplicationRecord
-  STATES = [
+STATES = [
   {state: 'Alabama', abbr: 'AL'},
   {state: 'Alaska', abbr:	'AK'},
   {state: 'Arizona', abbr:	'AZ'},
@@ -51,10 +50,3 @@ class Park < ApplicationRecord
   {state: 'District of Columbia', abbr:	'DC'},
   {state: 'Marshall Islands', abbr:	'MH'}
 ]
-
-
-def state_name
-  return STATES.select{|state| return state[:state] if state[:abbr] === self.state}
-  nil
-end
-end

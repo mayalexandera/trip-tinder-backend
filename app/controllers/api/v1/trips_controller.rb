@@ -12,20 +12,20 @@ class Api::V1::TripsController < ApplicationController
     @trip = Trip.new(trip_params)
     @trip.trip_lead = @user
     @trip.save!
-      if @trip.save
-        UserTrip.create!(
-          trip: @trip,
-          trip_lead: @trip.trip_lead;
-        )
-        ParkTrip.create!(
-          park: @trip.park,
-          trip: @trip
-        )
-        
-       render json: @trip
-      else
-        render json: { error: 'failed to create trip'}, status: :not_acceptable
-      end
+    if @trip.save
+      UserTrip.create!(
+        trip: @trip,
+        trip_lead: @trip.trip_lead
+      )
+      ParkTrip.create!(
+        park: @trip.park,
+        trip: @trip
+      )
+
+     render json: @trip, include: [:trip_lead, :park]
+    else
+      render json: { error: 'failed to create trip'},status: :not_acceptable
+    end
   end
 
   def edit 
