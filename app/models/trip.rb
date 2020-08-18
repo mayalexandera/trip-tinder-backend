@@ -8,8 +8,14 @@ class Trip < ApplicationRecord
   validates :start_date, :end_date, :trip_lead, :park_id, :description, :state, presence: true
   validates :difficulty_rating, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10}
 
-  def self.searchable(word)
-    Trip.all.map{ |trip| trip.word == word }
+  def self.searchable(term)
+    if term[0] === 'state'
+      Trip.all.where(state: term[1])
+    elsif term[0] === 'difficulty_rating'
+      Trip.all.where(difficulty_rating: term[1])
+    elsif term[0] === 'park_id'
+      Trip.all.where(park_id: term[1])
+    end
   end
 
   def trip_goers

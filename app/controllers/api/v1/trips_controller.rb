@@ -3,14 +3,13 @@ class Api::V1::TripsController < ApplicationController
 
   def index
     if request.headers['term']
-      term = request.heeaders['term']
+      term = request.headers['term'].split(",")
       @trips = Trip.searchable(term)
+      render json: @trips
+    else
+      @trips = Trip.all
+      render json: @trips, include: [:trip_lead, :park]
     end
-    puts request.headers
-    #byebug
-    @trips = Trip.all
-    #byebug
-    render json: @trips, include: [:trip_lead, :park]
   end
 
   def create
