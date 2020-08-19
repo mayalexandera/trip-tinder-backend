@@ -89,43 +89,43 @@ User.create!(
 
 
 User.create!(
-  first_name: "Korra"
-  last_name: "TheAvatar"
-  username: "Waterbender"
-  password: 12345
+  first_name: "Korra",
+  last_name: "TheAvatar",
+  username: "Waterbender",
+  password: 12345,
   bio: "I am the Avatar. I kind of have super powers. But I'm also super chill. I like extreme sports.",
   avatar: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Korra_%28Season_4%29_appearance.jpg/220px-Korra_%28Season_4%29_appearance.jpg"
 )
 
 User.create!(
-  first_name: "Bette"
-  last_name: "Porter"
-  username: "Pantsuits"
-  password: 12345
-  bio: "Don't mess with me. But I'm nice, really. I love the outdoors and the environment. I will hurt you if you don't believe in climate change."
+  first_name: "Bette",
+  last_name: "Porter",
+  username: "Pantsuits",
+  password: 12345,
+  bio: "Don't mess with me. But I'm nice, really. I love the outdoors and the environment. I will hurt you if you don't believe in climate change.",
   avatar: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/elle-jennifer-beals-1580006792.jpg"
 )
 
 User.create!(
-  first_name: "Tom"
-  last_name: "Hanks"
-  user_name: "ForrestGump"
+  first_name: "Tom",
+  last_name: "Hanks",
+  username: "ForrestGump",
   password: 12345,
-  bio: "Everyone loves me."
+  bio: "Everyone loves me.",
   avatar: "https://www.biography.com/.image/t_share/MTE1ODA0OTcxNjUxNTk3ODM3/tom-hanks-9327661-1-402.jpg"
 )
 
 UserTrip.create!(
-  trip_id: Trip.first.id
+  trip_id: Trip.first.id,
   user_id: User.first.id 
 )
 
 UserTrip.create!(
-  trip_id: Trip.second.id
+  trip_id: Trip.second.id,
   user_id: User.second.id
 )
 
 UserTrip.create!(
-  trip_id: Trip.third.id 
+  trip_id: Trip.third.id, 
   user_id: User.third.id
 )
