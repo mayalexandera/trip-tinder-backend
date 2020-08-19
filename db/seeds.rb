@@ -109,8 +109,8 @@ User.create!(
 User.create!(
   first_name: "Tom",
   last_name: "Hanks",
-  user_name: "ForrestGump",
-  password: 12345,,
+  username: "ForrestGump",
+  password: 12345,
   bio: "Everyone loves me.",
   avatar: "https://www.biography.com/.image/t_share/MTE1ODA0OTcxNjUxNTk3ODM3/tom-hanks-9327661-1-402.jpg"
 )
@@ -126,6 +126,6 @@ UserTrip.create!(
 )
 
 UserTrip.create!(
-  trip_id: Trip.third.id,
+  trip_id: Trip.third.id, 
   user_id: User.third.id
 )
