@@ -20,7 +20,7 @@ class Api::V1::TripsController < ApplicationController
     if @trip.save
       UserTrip.create!(
         trip: @trip,
-        trip_lead: @trip.trip_lead
+        user: @trip.trip_lead
       )
       ParkTrip.create!(
         park: @trip.park,
@@ -29,11 +29,11 @@ class Api::V1::TripsController < ApplicationController
 
      render json: @trip, include: [:trip_lead, :park]
     else
-      render json: { error: 'failed to create trip'},status: :not_acceptable
+      render json: { error: 'failed to create trip'}, status: :not_acceptable
     end
   end
 
-  def edit 
+  def edit
     @trip = Trip.find_by(id: params[:trip_id])
   end
 
@@ -54,6 +54,6 @@ class Api::V1::TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :state, :description, :start_date, :end_date, :park_id, :trip_goers, :trip_lead,:difficulty_rating)
+    params.require(:trip).permit(:name, :state, :description, :start_date, :end_date, :park_id, :trip_goers, :trip_lead, :difficulty_rating)
   end
 end
